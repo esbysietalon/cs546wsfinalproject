@@ -1,0 +1,67 @@
+h1{
+    text-align: center;
+    font-size: 350%;
+    font-family: "Trebuchet MS";
+    background-color: darkturquoise
+}
+body{
+    background-color: azure;
+}
+form.register-form,form.login-form{
+    padding-top: 15%;
+    padding-bottom: 20px;
+}
+main{
+    text-align: center;
+    font-family: courier new;
+}
+button{
+    margin-top: 20px;
+    font-size: 120%;
+    font-family: monospace;
+}
+p{
+    font-family: monospace;
+    font-size: 14px;
+    background-color:whitesmoke;
+    padding: 5px;
+}
+
+
+h2{
+    text-align: center;
+    font-size: 220%;
+    font-family: verdana;
+}
+div.link-back{
+    position: absolute;
+    bottom: 2%;
+    left: 46.5%;
+}
+div.feed-container{
+    min-height:100%;
+    position: relative;
+}
+
+dt{
+    text-transform: uppercase;
+    font-size: 150%;
+    padding-top: 1%;
+    font-family: monospace;
+}
+dd{
+    padding-bottom: 1%;
+}
+
+
+p.autherr-msg,p.forbidden{
+    text-align: center;
+    background-color: black;
+    color: red;
+}
+p.logout-msg{
+    text-align: center;
+    padding-top: 10%;
+    font-size: 150%;
+    background-color: azure;
+}

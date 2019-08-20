@@ -1,0 +1,117 @@
+<h1>{{title}}</h1>
+<h2>Home</h2>
+<main>
+    <div class="feed-container">
+        <header>
+            <a href="/posts">Feed</a>
+            <a href="/profile">Profile</a>
+            <a href="/logout">Logout</a>
+        </header>
+        {{#if posterr}}
+        <p class="autherr-msg">There was an error making that post.</p>
+        {{/if}}
+        <form class="search-form" method="post" action="/posts" id="search-form">
+            <div class="search-input">
+                <label for="searchbox">Search for Posts </label>
+                <input type="text" id="searchbox" name="searchbox">
+            </div>
+            <button type="submit" name="tosearch" value="true">Search</button>
+        </form>
+    <form class="post-form" method="post" action="/posts" id="post-form">
+        <div class="title-input">
+            <label for="title">Title </label>
+            <input type="text" id="title" name="title">
+        </div>
+        <div class="type-input">
+            <label for="type">Type </label>
+            <select id="type" name="type">
+                <option value="Text">Text</option>
+                <option value="Image">Image</option>
+                <option value="Video">Video</option>
+            </select>
+        </div>
+        <div class="content-input">
+            <label for="content">Description </label>
+            <input type="text" id="content" name="content">
+        </div>
+        <div class="url-input">
+            <label for="url">Url </label>
+            <input type="text" id="url" name="url">
+        </div>
+        <button type="submit" name="topost" value="true">Post</button>
+    </form>
+    <ul>
+        {{#each dataarr}}
+            <li class="post">
+                {{#ifeq this.post._id ../editpost}}
+                    <form class="edit-form" method="post" action="/posts" id="edit-form">
+                        <div class="title-input">
+                            <label for="title_edit">Title </label>
+                            <input type="text" id="title_edit" name="title_edit" value="{{this.post.title}}">
+                        </div>
+                        <div class="type-input">
+                            <label for="type_edit">Type </label>
+                            <select id="type_edit" name="type_edit">
+                                <option value="{{this.post.type}}" selected disabled hidden>{{this.post.type}}</option>
+                                <option value="Text">Text</option>
+                                <option value="Image">Image</option>
+                                <option value="Video">Video</option>
+                            </select>
+                        </div>
+                        <div class="content-input">
+                            <label for="content_edit">Description </label>
+                            <input type="text" id="content_edit" name="content_edit" value="{{this.post.content}}">
+                        </div>
+                        <div class="url-input">
+                            <label for="url_edit">Url </label>
+                            <input type="text" id="url_edit" name="url_edit" value="{{this.post.url}}">
+                        </div>
+                        <button type="submit" name="toedit" value={{this.post._id}}>Save changes</button>
+                    </form>
+                {{else}}
+                <h3 class="post-title">{{this.post.title}}</h3>
+                <a class="user-link" href="/profile/{{this.auth.id}}"><h4 class="post-author">{{this.auth.name}}</h4></a>
+                <div class="post-interaction">
+                    <form>
+                        <button type="submit" formaction="/posts" formmethod="post" name="postid" value={{this.post._id}}>{{#checkArr ../userfavs this.post._id}}Unfavorite{{/checkArr}}{{#checkNArr ../userfavs this.post._id}}Favorite{{/checkNArr}}</button>
+                        {{#checkArr ../userposts this.post._id}}
+                            <button type="submit" formaction="/posts/edit-post" formmethod="get" name="postid" value={{this.post._id}}>Edit</button>
+                            <button type="submit" formaction="/posts/delete-post" formmethod="get" name="postid" value={{this.post._id}}>Delete</button>
+                        {{/checkArr}}
+                    </form>
+                </div>
+                <p>{{this.post.content}}</p>
+                {{#ifeq this.post.type "Image"}}
+                <img src={{this.post.url}} alt="Unable to load image">
+                {{/ifeq}}
+                {{#ifeq this.post.type "Video"}}
+                <iframe width="560" height="315" src={{{embedsrc this.post.url}}} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                {{/ifeq}}
+                {{/ifeq}}
+            </li>
+        {{/each}}
+    </ul>
+    <div class="pages">
+        {{#if back}}
+            <!form class="button-form" method="post" action="/posts">
+                <button class="back-button" type="button" value="true" name="back">Back</button>
+            <!/form>
+        {{/if}}
+        {{#for maxpages}}
+            <!form class="button-form" method="post" action="/posts">
+                <button class="page-button" type="button" value={{@index}} name="page">{{@adjindex}}</button>
+            <!/form>
+        {{/for}}
+        {{#if next}}
+            <!form class="button-form" method="post" action="/posts">
+                <button class="next-button" type="button" value="true" name="next">Next</button>
+            <!/form>
+        {{/if}}
+    </div>
+    <footer>
+            <a href="/posts">Feed</a>
+            <a href="/profile">Profile</a>
+            <a href="/logout">Logout</a>
+        </footer>
+    </div>
+</main>

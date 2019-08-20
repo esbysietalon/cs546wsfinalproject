@@ -12,7 +12,6 @@ router.get("/", (req, res, next) =>{
         res.redirect('/login');
 },
 async (req, res) => {
-    console.log("page = " + page);
     //console.log("reached here");
     try{
         //console.log("reached here");
@@ -65,13 +64,23 @@ async (req, res) => {
     }
 });
 router.get("/edit-post", async(req, res) =>{
-    if(req.session.authenticated != true)
-        res.redirect('/login');
     const reqinfo = req.query;
     const postid = reqinfo.postid;
+    console.log("old page: " + page);
+    if(req.body.next === "true"){
+        page++;
+    }
+    if(req.body.back === "true"){
+        page--;
+    }
+    if(req.body.page != null){
+        page = req.body.page;
+    }
+    console.log("new page: " + page);
     try{    
         const post = await postData.get(postid);
     }catch(e){
+       
         res.redirect("/posts");
     }
     try{
@@ -113,6 +122,7 @@ router.get("/edit-post", async(req, res) =>{
         res.render('pages/feed', {title: "Welcome " + req.session.userinfo.fname, dataarr: dataarr, posterr: false, userfavs: req.session.userinfo.favorites, userposts: req.session.userinfo.posts, editpost: postid, postlogic:true, maxpages: maxpages, back: back, next: next});
     }catch(e){
         console.log(e.message);
+        res.redirect("/posts");
     }
 });
 router.get("/delete-post", async(req, res) =>{
@@ -131,6 +141,7 @@ router.post("/", async (req, res, next) =>{
     if(req.session.authenticated != true)
         res.redirect('/login');
     const reqinfo = req.body;
+    console.log("old page: " + page);
     if(reqinfo.next === "true"){
         page++;
     }
@@ -140,7 +151,7 @@ router.post("/", async (req, res, next) =>{
     if(reqinfo.page != null){
         page = reqinfo.page;
     }
-    console.log("page = " + page);
+    console.log("new page: " + page);
     if(reqinfo.topost === "true"){
         const pdata = req.body;
         const title = pdata.title;

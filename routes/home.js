@@ -50,9 +50,9 @@ async (req, res) => {
         }catch(e){
             
         }
-        res.render('pages/feed', {title: "Welcome " + req.session.userinfo.fname, dataarr: dataarr, posterr: false, userfavs: req.session.userinfo.favorites, userposts: req.session.userinfo.posts, postlogic:true, maxpages: maxpages, back: back, next: next});
+        res.render('pages/feed', {page: (parseInt(page)+1), title: "Welcome " + req.session.userinfo.fname, dataarr: dataarr, posterr: false, userfavs: req.session.userinfo.favorites, userposts: req.session.userinfo.posts, postlogic:true, maxpages: maxpages, back: back, next: next});
     }catch(e){
-        res.render('pages/feed', {err: true, errmsg: "Sorry, we are experiencing issues displaying the feed right now. We apologize for the inconvenience.", title: "Welcome " + req.session.userinfo.fname, dataarr: dataarr, posterr: false, userfavs: req.session.userinfo.favorites, userposts: req.session.userinfo.posts, postlogic:true, maxpages: maxpages, back: back, next: next});
+        res.render('pages/feed', {page: (parseInt(page)+1), err: true, errmsg: "Sorry, we are experiencing issues displaying the feed right now. We apologize for the inconvenience.", title: "Welcome " + req.session.userinfo.fname, dataarr: dataarr, posterr: false, userfavs: req.session.userinfo.favorites, userposts: req.session.userinfo.posts, postlogic:true, maxpages: maxpages, back: back, next: next});
     }
 });
 router.get("/edit-post", async(req, res) =>{
@@ -106,9 +106,9 @@ router.get("/edit-post", async(req, res) =>{
                     post: postarr[i]
                 };
             }
-        res.render('pages/feed', {title: "Welcome " + req.session.userinfo.fname, dataarr: dataarr, posterr: false, userfavs: req.session.userinfo.favorites, userposts: req.session.userinfo.posts, editpost: postid, postlogic:true, maxpages: maxpages, back: back, next: next});
+        res.render('pages/feed', {page: (parseInt(page)+1), title: "Welcome " + req.session.userinfo.fname, dataarr: dataarr, posterr: false, userfavs: req.session.userinfo.favorites, userposts: req.session.userinfo.posts, editpost: postid, postlogic:true, maxpages: maxpages, back: back, next: next});
     }catch(e){
-        res.render('pages/feed', {err: true, errmsg: "Something went wrong while trying to edit that post.", title: "Welcome " + req.session.userinfo.fname, dataarr: dataarr, posterr: false, userfavs: req.session.userinfo.favorites, userposts: req.session.userinfo.posts, postlogic:true, maxpages: maxpages, back: back, next: next});
+        res.render('pages/feed', {page: (parseInt(page)+1), err: true, errmsg: "Something went wrong while trying to edit that post.", title: "Welcome " + req.session.userinfo.fname, dataarr: dataarr, posterr: false, userfavs: req.session.userinfo.favorites, userposts: req.session.userinfo.posts, postlogic:true, maxpages: maxpages, back: back, next: next});
     }
 });
 router.get("/delete-post", async(req, res) =>{
@@ -119,7 +119,7 @@ router.get("/delete-post", async(req, res) =>{
     try{    
         const deleted = await postData.delete(postid);
     }catch(e){
-        res.render('pages/feed', {err: true, errmsg: "Something went wrong while trying to delete that post.", title: "Welcome " + req.session.userinfo.fname, dataarr: dataarr, posterr: false, userfavs: req.session.userinfo.favorites, userposts: req.session.userinfo.posts, postlogic:true, maxpages: maxpages, back: back, next: next});
+        res.render('pages/feed', {page: (parseInt(page)+1), err: true, errmsg: "Something went wrong while trying to delete that post.", title: "Welcome " + req.session.userinfo.fname, dataarr: dataarr, posterr: false, userfavs: req.session.userinfo.favorites, userposts: req.session.userinfo.posts, postlogic:true, maxpages: maxpages, back: back, next: next});
         return;
     }
     res.redirect("/posts");
@@ -187,7 +187,7 @@ router.post("/", async (req, res, next) =>{
                     post: postarr[i]
                 };
             }
-            res.render('pages/feed', {title: "Welcome " + req.session.userinfo.fname, dataarr: dataarr, posterr: true, userfavs: req.session.userinfo.favorites, userposts: req.session.userinfo.posts, postlogic:true, maxpages: maxpages, back: back, next: next});
+            res.render('pages/feed', {page: (parseInt(page)+1), title: "Welcome " + req.session.userinfo.fname, dataarr: dataarr, posterr: true, userfavs: req.session.userinfo.favorites, userposts: req.session.userinfo.posts, postlogic:true, maxpages: maxpages, back: back, next: next});
         }
     }else if(reqinfo.toedit != null){
         const pdata = req.body;
@@ -233,7 +233,7 @@ router.post("/", async (req, res, next) =>{
                     post: postarr[i]
                 };
             }
-            res.render('pages/feed', {title: "Welcome " + req.session.userinfo.fname, dataarr: dataarr, posterr: true, userfavs: req.session.userinfo.favorites, userposts: req.session.userinfo.posts, postlogic:true, maxpages: maxpages, back: back, next: next});
+            res.render('pages/feed', {page: (parseInt(page)+1), title: "Welcome " + req.session.userinfo.fname, dataarr: dataarr, posterr: true, userfavs: req.session.userinfo.favorites, userposts: req.session.userinfo.posts, postlogic:true, maxpages: maxpages, back: back, next: next});
         }
     }else if(reqinfo.tosearch === "true"){
         const pdata = req.body;
@@ -280,9 +280,9 @@ router.post("/", async (req, res, next) =>{
                     post: postarr[i]
                 };
             }
-            res.render('pages/feed', {title: "Welcome " + req.session.userinfo.fname, dataarr: dataarr, posterr: false, userfavs: req.session.userinfo.favorites, userposts: req.session.userinfo.posts, postlogic:true, maxpages: maxpages, back: back, next: next});
+            res.render('pages/feed', {page: (parseInt(page)+1), title: "Welcome " + req.session.userinfo.fname, dataarr: dataarr, posterr: false, userfavs: req.session.userinfo.favorites, userposts: req.session.userinfo.posts, postlogic:true, maxpages: maxpages, back: back, next: next});
         }catch(e){
-            res.render('pages/feed', {err: true, errmsg: "Something went wrong while trying to searching the posts.", title: "Welcome " + req.session.userinfo.fname, dataarr: dataarr, posterr: false, userfavs: req.session.userinfo.favorites, userposts: req.session.userinfo.posts, postlogic:true, maxpages: maxpages, back: back, next: next});
+            res.render('pages/feed', {page: (parseInt(page)+1), err: true, errmsg: "Something went wrong while trying to searching the posts.", title: "Welcome " + req.session.userinfo.fname, dataarr: dataarr, posterr: false, userfavs: req.session.userinfo.favorites, userposts: req.session.userinfo.posts, postlogic:true, maxpages: maxpages, back: back, next: next});
         }
     }else{
         const pid = reqinfo.postid;
@@ -298,7 +298,7 @@ router.post("/", async (req, res, next) =>{
                 req.session.userinfo = await userData.get(req.session.userinfo._id);
                 delete req.session.userinfo.hashedPassword;
             }catch(e){
-                res.render('pages/feed', {err: true, errmsg: "Something went wrong while trying to fav/unfav that post.", title: "Welcome " + req.session.userinfo.fname, dataarr: dataarr, posterr: false, userfavs: req.session.userinfo.favorites, userposts: req.session.userinfo.posts, postlogic:true, maxpages: maxpages, back: back, next: next});
+                res.render('pages/feed', {page: (parseInt(page)+1), err: true, errmsg: "Something went wrong while trying to fav/unfav that post.", title: "Welcome " + req.session.userinfo.fname, dataarr: dataarr, posterr: false, userfavs: req.session.userinfo.favorites, userposts: req.session.userinfo.posts, postlogic:true, maxpages: maxpages, back: back, next: next});
                 return;
             }
         }

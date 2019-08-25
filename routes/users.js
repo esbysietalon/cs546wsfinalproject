@@ -37,7 +37,6 @@ router.get("/", async (req, res) => {
                 favarr.push(item);
                 
             }catch(e){
-                console.log(e.message);
                 //res.status(500).json({error: e.message});
             }
         }
@@ -56,7 +55,6 @@ router.get("/", async (req, res) => {
                 postarr.push(item);
                 
             }catch(e){
-                console.log(e.message);
                 
                 //res.status(500).json({error: e.message});
             }
@@ -99,7 +97,6 @@ router.get("/edit", async (req, res) => {
                 favarr.push(item);
                 
             }catch(e){
-                console.log(e.message);
                 //res.status(500).json({error: e.message});
             }
         }
@@ -118,7 +115,6 @@ router.get("/edit", async (req, res) => {
                 postarr.push(item);
                 
             }catch(e){
-                console.log(e.message);
                 
                 //res.status(500).json({error: e.message});
             }
@@ -138,7 +134,6 @@ router.post("/", async(req, res) => {
 });
 router.get("/:id", async(req, res) => {
     try{
-        console.log(req.params.id);
         const user = await userData.get(req.params.id);
         delete user["hashedPassword"];
         delete user["_id"];
@@ -170,7 +165,6 @@ router.get("/:id", async(req, res) => {
                 favarr.push(item);
                 
             }catch(e){
-                console.log(e.message);
                 //res.status(500).json({error: e.message});
             }
         }
@@ -189,8 +183,6 @@ router.get("/:id", async(req, res) => {
                 postarr.push(item);
                 
             }catch(e){
-                console.log(e.message);
-                
                 //res.status(500).json({error: e.message});
             }
         }

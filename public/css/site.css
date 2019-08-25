@@ -2,7 +2,10 @@ h1{
     text-align: center;
     font-size: 350%;
     font-family: "Trebuchet MS";
-    background-color: darkturquoise
+    background-color: darkturquoise;
+}
+h2.profile-divider{
+    background-color: darkturquoise;
 }
 body{
     background-color: azure;
@@ -21,13 +24,16 @@ button{
     font-family: monospace;
 }
 p{
-    font-family: monospace;
     font-size: 14px;
     background-color:whitesmoke;
     padding: 5px;
 }
-
-
+p.description{
+    margin: 5px;
+    padding: 5px;
+    background-color: azure;
+    font-family:sans-serif;
+}
 h2{
     text-align: center;
     font-size: 220%;
@@ -42,19 +48,70 @@ div.feed-container{
     min-height:100%;
     position: relative;
 }
-
+footer{
+    padding-top: 2%;
+}
+header{
+    padding-bottom: 2%;
+}
+label {
+  display: inline-block;
+  width: 200px;
+  text-align: right;
+}
+h3.post-title{
+    font-family: serif;
+    font-size: 150%;
+}
+a.user-link{
+    font-family: sans-serif;
+    color:crimson;
+}
+form.search-form, form.post-form{
+    padding: 20px;
+}
 dt{
     text-transform: uppercase;
     font-size: 150%;
     padding-top: 1%;
     font-family: monospace;
 }
+div.register{
+    padding-top: 10px;
+}
+div.post-interaction{
+    padding-bottom: 5px;
+}
+img, iframe{
+    padding-top: 10px;
+}
 dd{
     padding-bottom: 1%;
 }
-
-
-p.autherr-msg,p.forbidden{
+li{
+    list-style: none;
+}
+li.post{
+    padding: 10px;   
+}
+li.tweet-item{
+    padding: 20px;
+}
+li.tweet-item{
+    background-color: white;
+}
+p.twitter-header{
+    color:darkcyan;
+    background-color: white;
+    font-size: 150%;
+    font-weight: 900;
+}
+p.tweet-name{
+    color: darkblue;
+    font-size: 120%;
+    font-weight: 900;
+}
+p.autherr-msg,p.error{
     text-align: center;
     background-color: black;
     color: red;

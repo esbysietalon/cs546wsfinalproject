@@ -15,6 +15,22 @@ router.post("/", async (req, res) => {
     const lname = loginData.lname;
     const username = loginData.username;
     const password = loginData.password;
+    if(!fname || typeof fname != 'string' || fname.length === 0){
+        res.render("pages/register", {title: "Create a new account", err: true, errmsg: "Please fill in the form completely", registered: false, username: username});
+        return;
+    }
+    if(!lname || typeof lname != 'string' || lname.length === 0){
+        res.render("pages/register", {title: "Create a new account", err: true, errmsg: "Please fill in the form completely", registered: false, username: username});
+        return;
+    }
+    if(!username || typeof username != 'string' || username.length === 0){
+        res.render("pages/register", {title: "Create a new account", err: true, errmsg: "Please fill in the form completely", registered: false, username: username});
+        return;
+    }
+    if(!password || typeof password != 'string' || password.length === 0){
+        res.render("pages/register", {title: "Create a new account", err: true, errmsg: "Please fill in the form completely", registered: false, username: username});
+        return;
+    }
     try{    
         const users = await userData.getAll();
         for(var i = 0; i < users.length; i++){
@@ -26,7 +42,6 @@ router.post("/", async (req, res) => {
         await userData.create(fname, lname, username, password);
         res.render("pages/register", {title: "Account created successfully", registered: true});
     }catch(e){
-        console.log(e.message);
         res.render("pages/register", {title: "Create a new account", inputerr: true, registered: false, username: username});
     }
 });

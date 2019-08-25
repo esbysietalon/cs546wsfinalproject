@@ -24,8 +24,8 @@
         <p class="twitter-header">Here are {{resultslen}} results from tweets made in the last 7 days:</p>
         <ul class="tweet-list">
             {{#each dataarr}}
-            <li class="tweet-item"><p class="tweet-name">{{this.name}} tweets:</p> <p class="tweet-body">{{{extracttweet this.text}}}</p>
-            <button class="read-button" name="tweet" value="{{this.name}} tweets:. {{this.text}}">Read this tweet</button>
+            <li class="tweet-item"><p class="tweet-name">@{{this.name}} tweets:</p> <p class="tweet-body">{{{extracttweet this.text}}}</p>
+            <button class="read-button" name="tweet" value="@{{this.name}} tweets:. {{this.text}}">Read this tweet</button>
             </li>
             {{/each}}            
         </ul>

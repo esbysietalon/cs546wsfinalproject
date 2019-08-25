@@ -28,7 +28,7 @@ router.post("/", async (req, res) => {
 
             res.render("pages/twitter", {title: "Twitter Time!", showtweets: true, resultslen: results.length, havetweets: (results.length > 0), dataarr: results, postlogic: true});
         }else{
-            res.render("pages/twitter", {title: "Twitter Time!", err: true, errmsg: "There was a problem in searching for '" + terms + "'."});
+            res.render("pages/twitter", {title: "Twitter Time!", err: true, errmsg: "There was a problem in searching for '" + terms + "': " + error[0].message});
         }
     });
 });

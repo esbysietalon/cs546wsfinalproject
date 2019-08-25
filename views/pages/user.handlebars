@@ -41,29 +41,30 @@
             </form>
         {{/if}}
     </dl>
-    <h2>Posts</h2>
+    <h2 class="profile-divider">Posts</h2>
     {{#each posts}}
         <h3 class="post-title">{{this.post.title}}</h3>
     <a class="user-link" href="/profile/{{this.auth.id}}"><h4 class="post-author">{{this.auth.name}}</h4></a>
-        <p>{{this.post.content}}</p>        
         {{#ifeq this.post.type "Image"}}
         <img src={{this.post.url}} alt="Unable to load image">
         {{/ifeq}}
         {{#ifeq this.post.type "Video"}}
         <iframe width="560" height="315" src={{{embedsrc this.post.url}}} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         {{/ifeq}}
+        <p class="description">{{this.post.content}}</p>
     {{/each}}
-    <h2>Favorites</h2>
+    <h2 class="profile-divider">Favorites</h2>
     {{#each favs}}
         <h3 class="post-title">{{this.post.title}}</h3>
         <a class="user-link" href="/profile/{{this.auth.id}}"><h4 class="post-author">{{this.auth.name}}</h4></a>
-        <p>{{this.post.content}}</p>
+        
         {{#ifeq this.post.type "Image"}}
         <img src={{this.post.url}} alt="Unable to load image">
         {{/ifeq}}
         {{#ifeq this.post.type "Video"}}
         <iframe width="560" height="315" src={{{embedsrc this.post.url}}} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         {{/ifeq}}
+        <p class="description">{{this.post.content}}</p>
     {{/each}}
     <footer>
         <a href="/posts">Feed</a>

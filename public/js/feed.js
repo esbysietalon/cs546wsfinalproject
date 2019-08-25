@@ -13,5 +13,9 @@ $(document).ready(function(){
     });
     $(".read-button").click(function(){
         $.post("/twitter/speak", {tweet: $(this).val()});
-    })
+    });
+    $("button[name=tweet]").click(function(){
+        var parsed = ($(this).val()).split(';;;==;+');
+        $.post("/deepfake/tweet", {screenname: parsed[0], tweet: parsed[1]});
+    });
 });

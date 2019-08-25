@@ -85,13 +85,14 @@
                         {{/checkArr}}
                     </form>
                 </div>
-                <p>{{this.post.content}}</p>
+                
                 {{#ifeq this.post.type "Image"}}
                 <img src={{this.post.url}} alt="Unable to load image">
                 {{/ifeq}}
                 {{#ifeq this.post.type "Video"}}
                 <iframe width="560" height="315" src={{{embedsrc this.post.url}}} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 {{/ifeq}}
+                <p>{{this.post.content}}</p>
                 {{/ifeq}}
             </li>
         {{/each}}

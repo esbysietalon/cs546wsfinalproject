@@ -9,27 +9,30 @@
             <a href="/twitter">Twitter</a>
             <a href="/deepfake">Deepfake</a>
         </header>
+        {{#if tweeted}}
+            <p class="confirm">Generated tweet posted successfully! Check @talon_joaquin to see.</p>
+        {{/if}}
         {{#if err}}
             <p class="error">{{errmsg}}</p>
         {{/if}}
         <form class="search-form" method="post" action="/deepfake/load" id="search-form">
         <div class="search-input">
-            <label for="searchbox">Load Tweets From </label>
-            <input type="text" id="searchbox" name="searchbox">
+            <label for="loadsearchbox">Load Tweets From </label>
+            <input type="text" id="loadsearchbox" name="loadsearchbox">
         </div>
         <button type="submit">Load</button>
         </form>
         <form class="search-form" method="post" action="/deepfake/generate" id="search-form">
         <div class="search-input">
-            <label for="searchbox">Generate Tweets From </label>
-            <input type="text" id="searchbox" name="searchbox">
+            <label for="gensearchbox">Generate Tweets From </label>
+            <input type="text" id="gensearchbox" name="gensearchbox">
         </div>
         <button type="submit">Generate</button>
         </form>
         
         {{#if havetweets}}
         {{#if load}}
-        <p class="twitter-header">Loading {{resultslen}} tweets from {{screenname}}, Here are a few:</p>
+        <p class="twitter-header">Loading {{resultslen}} tweets from @{{screenname}}, Here are a few:</p>
         <ul class="tweet-list">
             {{#each dataarr}}
             <li class="tweet-item"><p class="tweet-body">{{{extracttweet this}}}</p>
@@ -37,21 +40,29 @@
             {{/each}}            
         </ul>
         {{else}}
-        <p class="twitter-header">Generated tweets from {{screenname}}</p>
+        <p class="twitter-header">Generated tweet from @{{screenname}}</p>
         <ul class="tweet-list">
             {{#each dataarr}}
             <li class="tweet-item"><p class="tweet-body">{{{this}}}</p>
             </li>
-            {{/each}}            
+            <form method="get" action="/deepfake/tweet">
+                <button type="submit" name="tweet" value="{{../screenname}};;;==;+{{this}}">Make the Twitter Bot tweet this?</button>    
+            </form>
+            {{/each}}
+            
         </ul>
+        
+        
+        
         {{/if}}
         {{else}}
         {{#if shouldshow}}
-        <p class="twitter-header">There were no tweets found from {{screenname}}.</p>
+        <p class="twitter-header">There were no tweets found from @{{screenname}}.</p>
         {{else}}
         
         {{/if}}
         {{/if}}
+
         <footer>
             <a href="/posts">Feed</a>
             <a href="/profile">Profile</a>

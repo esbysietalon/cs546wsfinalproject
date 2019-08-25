@@ -21,7 +21,7 @@ async (req, res) => {
                 var user = await userData.get(postarr[i].author);
                 autharr.push({name: user.fname + " " + user.lname, id: postarr[i].author});
             }catch(e){
-                console.log(e.message);
+                
             }
         }
         var maxpages = Math.ceil(autharr.length / 10);
@@ -48,7 +48,7 @@ async (req, res) => {
             req.session.userinfo = await userData.get(req.session.userinfo._id);
             delete req.session.userinfo.hashedPassword;
         }catch(e){
-            console.log(e.message);
+            
         }
         res.render('pages/feed', {title: "Welcome " + req.session.userinfo.fname, dataarr: dataarr, posterr: false, userfavs: req.session.userinfo.favorites, userposts: req.session.userinfo.posts, postlogic:true, maxpages: maxpages, back: back, next: next});
     }catch(e){
@@ -83,7 +83,7 @@ router.get("/edit-post", async(req, res) =>{
                 var user = await userData.get(postarr[i].author);
                 autharr.push({name: user.fname + " " + user.lname, id: postarr[i].author});
             }catch(e){
-                console.log(e.message);
+                
             }
         }
         var maxpages = Math.ceil(autharr.length / 10);
@@ -120,6 +120,7 @@ router.get("/delete-post", async(req, res) =>{
         const deleted = await postData.delete(postid);
     }catch(e){
         res.render('pages/feed', {err: true, errmsg: "Something went wrong while trying to delete that post.", title: "Welcome " + req.session.userinfo.fname, dataarr: dataarr, posterr: false, userfavs: req.session.userinfo.favorites, userposts: req.session.userinfo.posts, postlogic:true, maxpages: maxpages, back: back, next: next});
+        return;
     }
     res.redirect("/posts");
 });
@@ -155,7 +156,7 @@ router.post("/", async (req, res, next) =>{
                     var user = await userData.get(postarr[i].author);
                     autharr.push({name: user.fname + " " + user.lname, id: postarr[i].author});
                 }catch(e){
-                    console.log(e.message);
+                    
                 }
             }
             //autharr.reverse();
@@ -200,7 +201,6 @@ router.post("/", async (req, res, next) =>{
             delete req.session.userinfo.hashedPassword;
             res.redirect("/posts");
         }catch(e){
-            alert(e.message);
             postarr = await postData.getAll();
             var autharr = [];
             for(var i = 0; i < postarr.length; i++){
@@ -208,7 +208,7 @@ router.post("/", async (req, res, next) =>{
                     var user = await userData.get(postarr[i].author);
                     autharr.push({name: user.fname + " " + user.lname, id: postarr[i].author});
                 }catch(e){
-                    console.log(e.message);
+                    
                 }
             }
             //autharr.reverse();
@@ -256,7 +256,7 @@ router.post("/", async (req, res, next) =>{
                     var user = await userData.get(postarr[i].author);
                     autharr.push({name: user.fname + " " + user.lname, id: postarr[i].author});
                 }catch(e){
-                    console.log(e.message);
+                    
                 }
             }
            
@@ -282,25 +282,25 @@ router.post("/", async (req, res, next) =>{
             }
             res.render('pages/feed', {title: "Welcome " + req.session.userinfo.fname, dataarr: dataarr, posterr: false, userfavs: req.session.userinfo.favorites, userposts: req.session.userinfo.posts, postlogic:true, maxpages: maxpages, back: back, next: next});
         }catch(e){
-            res.redirect('/posts');
-            alert(e.message);
+            res.render('pages/feed', {err: true, errmsg: "Something went wrong while trying to searching the posts.", title: "Welcome " + req.session.userinfo.fname, dataarr: dataarr, posterr: false, userfavs: req.session.userinfo.favorites, userposts: req.session.userinfo.posts, postlogic:true, maxpages: maxpages, back: back, next: next});
         }
     }else{
         const pid = reqinfo.postid;
-        
-        //console.log(pid);
-        try{
-            user = await userData.get(req.session.userinfo._id);
-            if(user.favorites.includes(pid))
-                await userData.unfavorite(req.session.userinfo._id, pid);
-            else
-                await userData.favorite(req.session.userinfo._id, pid);
-                
-                
-            req.session.userinfo = await userData.get(req.session.userinfo._id);
-            delete req.session.userinfo.hashedPassword;
-        }catch(e){
-            console.log(e.message);
+        if(pid){
+            try{
+                user = await userData.get(req.session.userinfo._id);
+                if(user.favorites.includes(pid))
+                    await userData.unfavorite(req.session.userinfo._id, pid);
+                else
+                    await userData.favorite(req.session.userinfo._id, pid);
+                    
+                    
+                req.session.userinfo = await userData.get(req.session.userinfo._id);
+                delete req.session.userinfo.hashedPassword;
+            }catch(e){
+                res.render('pages/feed', {err: true, errmsg: "Something went wrong while trying to fav/unfav that post.", title: "Welcome " + req.session.userinfo.fname, dataarr: dataarr, posterr: false, userfavs: req.session.userinfo.favorites, userposts: req.session.userinfo.posts, postlogic:true, maxpages: maxpages, back: back, next: next});
+                return;
+            }
         }
         res.redirect('/posts');
     }

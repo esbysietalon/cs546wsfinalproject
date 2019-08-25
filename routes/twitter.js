@@ -41,7 +41,6 @@ router.post("/speak", async(req, res)=> {
         text = text.substr(0, text.length - 23);
    
     sayjs.speak(text);
-    console.log(text);
     res.redirect("/twitter");
 });
 

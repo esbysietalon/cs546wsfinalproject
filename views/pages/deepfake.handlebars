@@ -1,0 +1,63 @@
+<h1>{{title}}</h1>
+<h2>Markov Chains</h2>
+<main>
+    <div class="feed-container">
+        <header>
+            <a href="/posts">Feed</a>
+            <a href="/profile">Profile</a>
+            <a href="/logout">Logout</a>
+            <a href="/twitter">Twitter</a>
+            <a href="/deepfake">Deepfake</a>
+        </header>
+        {{#if err}}
+            <p class="error">{{errmsg}}</p>
+        {{/if}}
+        <form class="search-form" method="post" action="/deepfake/load" id="search-form">
+        <div class="search-input">
+            <label for="searchbox">Load Tweets From </label>
+            <input type="text" id="searchbox" name="searchbox">
+        </div>
+        <button type="submit">Load</button>
+        </form>
+        <form class="search-form" method="post" action="/deepfake/generate" id="search-form">
+        <div class="search-input">
+            <label for="searchbox">Generate Tweets From </label>
+            <input type="text" id="searchbox" name="searchbox">
+        </div>
+        <button type="submit">Generate</button>
+        </form>
+        
+        {{#if havetweets}}
+        {{#if load}}
+        <p class="twitter-header">Loading {{resultslen}} tweets from {{screenname}}, Here are a few:</p>
+        <ul class="tweet-list">
+            {{#each dataarr}}
+            <li class="tweet-item"><p class="tweet-body">{{{extracttweet this}}}</p>
+            </li>
+            {{/each}}            
+        </ul>
+        {{else}}
+        <p class="twitter-header">Generated tweets from {{screenname}}</p>
+        <ul class="tweet-list">
+            {{#each dataarr}}
+            <li class="tweet-item"><p class="tweet-body">{{{this}}}</p>
+            </li>
+            {{/each}}            
+        </ul>
+        {{/if}}
+        {{else}}
+        {{#if shouldshow}}
+        <p class="twitter-header">There were no tweets found from {{screenname}}.</p>
+        {{else}}
+        
+        {{/if}}
+        {{/if}}
+        <footer>
+            <a href="/posts">Feed</a>
+            <a href="/profile">Profile</a>
+            <a href="/logout">Logout</a>
+            <a href="/twitter">Twitter</a>
+            <a href="/deepfake">Deepfake</a>
+        </footer>
+    </div>
+</main>

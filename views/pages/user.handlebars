@@ -7,6 +7,9 @@
             <a href="/twitter">Twitter</a>
             <a href="/deepfake">Deepfake</a>
         </header>
+    {{#if err}}
+        <p class="error">{{errmsg}}</p>
+        {{/if}}
     {{#if notyours}}
     {{else}}
     {{#if notedit}}

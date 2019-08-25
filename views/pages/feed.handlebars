@@ -9,6 +9,9 @@
             <a href="/twitter">Twitter</a>
             <a href="/deepfake">Deepfake</a>
         </header>
+        {{#if err}}
+        <p class="error">{{errmsg}}</p>
+        {{/if}}
         {{#if posterr}}
         <p class="autherr-msg">There was an error making that post.</p>
         {{/if}}

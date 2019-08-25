@@ -1,6 +1,9 @@
 <h1>{{title}}</h1>
 <h2>Register a new account</h2>
 <main>
+    {{#if err}}
+        <p class="error">{{errmsg}}</p>
+        {{/if}}
     {{#if registered}}
         <p class="register-msg">User successfully created.</p>
         <div class="link-back2"><a href="/login">Login</a></div>

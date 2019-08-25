@@ -52,7 +52,7 @@ async (req, res) => {
         }
         res.render('pages/feed', {title: "Welcome " + req.session.userinfo.fname, dataarr: dataarr, posterr: false, userfavs: req.session.userinfo.favorites, userposts: req.session.userinfo.posts, postlogic:true, maxpages: maxpages, back: back, next: next});
     }catch(e){
-        console.log(e.message);
+        res.render('pages/feed', {err: true, errmsg: "Sorry, we are experiencing issues displaying the feed right now. We apologize for the inconvenience.", title: "Welcome " + req.session.userinfo.fname, dataarr: dataarr, posterr: false, userfavs: req.session.userinfo.favorites, userposts: req.session.userinfo.posts, postlogic:true, maxpages: maxpages, back: back, next: next});
     }
 });
 router.get("/edit-post", async(req, res) =>{
@@ -108,8 +108,7 @@ router.get("/edit-post", async(req, res) =>{
             }
         res.render('pages/feed', {title: "Welcome " + req.session.userinfo.fname, dataarr: dataarr, posterr: false, userfavs: req.session.userinfo.favorites, userposts: req.session.userinfo.posts, editpost: postid, postlogic:true, maxpages: maxpages, back: back, next: next});
     }catch(e){
-        console.log(e.message);
-        res.redirect("/posts");
+        res.render('pages/feed', {err: true, errmsg: "Something went wrong while trying to edit that post.", title: "Welcome " + req.session.userinfo.fname, dataarr: dataarr, posterr: false, userfavs: req.session.userinfo.favorites, userposts: req.session.userinfo.posts, postlogic:true, maxpages: maxpages, back: back, next: next});
     }
 });
 router.get("/delete-post", async(req, res) =>{
@@ -120,7 +119,7 @@ router.get("/delete-post", async(req, res) =>{
     try{    
         const deleted = await postData.delete(postid);
     }catch(e){
-        console.log(e.message);
+        res.render('pages/feed', {err: true, errmsg: "Something went wrong while trying to delete that post.", title: "Welcome " + req.session.userinfo.fname, dataarr: dataarr, posterr: false, userfavs: req.session.userinfo.favorites, userposts: req.session.userinfo.posts, postlogic:true, maxpages: maxpages, back: back, next: next});
     }
     res.redirect("/posts");
 });
@@ -128,7 +127,6 @@ router.post("/", async (req, res, next) =>{
     if(req.session.authenticated != true)
         res.redirect('/login');
     const reqinfo = req.body;
-    console.log("old page: " + page);
     if(reqinfo.next === "true"){
         page++;
     }
@@ -261,8 +259,7 @@ router.post("/", async (req, res, next) =>{
                     console.log(e.message);
                 }
             }
-            //autharr.reverse();
-            //postarr.reverse();
+           
             var maxpages = Math.ceil(autharr.length / 10);
             var back = false;
             var next = false;

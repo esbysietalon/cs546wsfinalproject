@@ -29,7 +29,10 @@ const constructorMethod = app => {
             res.redirect("/login");
     },  twitterRoutes);
     app.use("/deepfake", (req, res, next) =>{
-        next();
+        if(req.session.authenticated === true)
+            next();   
+        else
+            res.redirect("/login");
     }, deepfakeRoutes);
     app.use("/posts", (req, res, next) => {
         if(req.session.authenticated === true)

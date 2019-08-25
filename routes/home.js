@@ -12,25 +12,18 @@ router.get("/", (req, res, next) =>{
         res.redirect('/login');
 },
 async (req, res) => {
-    //console.log("reached here");
+
     try{
-        //console.log("reached here");
         postarr = await postData.getAll();
         var autharr = [];
         for(var i = 0; i < postarr.length; i++){
-            //console.log("reaching " + i + " out of " + (postarr.length - 1));
             try{
-                //console.log("author is " + postarr[i].author);
                 var user = await userData.get(postarr[i].author);
                 autharr.push({name: user.fname + " " + user.lname, id: postarr[i].author});
             }catch(e){
                 console.log(e.message);
             }
-            //console.log("finishing " + i + " out of " + (postarr.length - 1));
         }
-        //console.log("reached here");
-        //autharr.reverse();
-        //postarr.reverse();
         var maxpages = Math.ceil(autharr.length / 10);
         var back = false;
         var next = false;
@@ -57,7 +50,6 @@ async (req, res) => {
         }catch(e){
             console.log(e.message);
         }
-        //console.log("reached here");
         res.render('pages/feed', {title: "Welcome " + req.session.userinfo.fname, dataarr: dataarr, posterr: false, userfavs: req.session.userinfo.favorites, userposts: req.session.userinfo.posts, postlogic:true, maxpages: maxpages, back: back, next: next});
     }catch(e){
         console.log(e.message);
@@ -66,7 +58,6 @@ async (req, res) => {
 router.get("/edit-post", async(req, res) =>{
     const reqinfo = req.query;
     const postid = reqinfo.postid;
-    console.log("old page: " + page);
     if(req.body.next === "true"){
         page++;
     }
@@ -76,11 +67,9 @@ router.get("/edit-post", async(req, res) =>{
     if(req.body.page != null){
         page = req.body.page;
     }
-    console.log("new page: " + page);
     try{    
         const post = await postData.get(postid);
-    }catch(e){
-       
+    }catch(e){       
         res.redirect("/posts");
     }
     try{
@@ -97,8 +86,6 @@ router.get("/edit-post", async(req, res) =>{
                 console.log(e.message);
             }
         }
-        //autharr.reverse();
-        //postarr.reverse();
         var maxpages = Math.ceil(autharr.length / 10);
         var back = false;
         var next = false;
@@ -151,7 +138,6 @@ router.post("/", async (req, res, next) =>{
     if(reqinfo.page != null){
         page = reqinfo.page;
     }
-    console.log("new page: " + page);
     if(reqinfo.topost === "true"){
         const pdata = req.body;
         const title = pdata.title;

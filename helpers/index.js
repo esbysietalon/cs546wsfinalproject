@@ -10,6 +10,14 @@ var register = function(Handlebars) {
                 return "";
             return "https://www.youtube.com/embed/"+object.substr(-11);
         },
+        extracttweet: function(object){
+            if(typeof object != 'string')
+                return "";
+            if(object.substr(-23, 13) === 'https://t.co/')
+               return object.substr(0, object.length-23)+'<a href='+object.substr(-23)+'>'+object.substr(-23)+'</a>';
+            else
+                return object;
+         },
         checkArr: function(a, b, options){
             if(a == null)
                 return options.inverse(this);
@@ -36,6 +44,19 @@ var register = function(Handlebars) {
                 accum += block.fn(i);
             }
             return accum;
+        },
+        examArr: function(a){
+            if(!a){
+                return "";
+            }
+            if(!Array.isArray(a)){
+                return "";
+            }
+            var returnstr = '';
+            for(var i = 0; i < a.length; i++){
+                returnstr += '<li><p class="tweet">' + a[i].name + " tweets: " + a[i].text + '</p></li>';
+            }
+            return returnstr;
         }
     };
   

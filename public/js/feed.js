@@ -11,4 +11,7 @@ $(document).ready(function(){
         $.post("/posts", {page: $(this).val()});
         window.location.href = "/posts";
     });
+    $(".read-button").click(function(){
+        $.post("/twitter/speak", {tweet: $(this).val()});
+    })
 });

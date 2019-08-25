@@ -4,6 +4,8 @@ const loginRoutes = require("./login");
 const logoutRoute = require("./logout");
 const registerRoutes = require("./register");
 const homeRoute = require("./home");
+const twitterRoutes = require("./twitter");
+const deepfakeRoutes = require("./deepfake");
 
 const constructorMethod = app => {
     app.get("/test", (req, res, next) => {
@@ -20,6 +22,15 @@ const constructorMethod = app => {
     app.use("/register", registerRoutes);
     app.use("/login", loginRoutes);
     app.use("/logout", logoutRoute);
+    app.use("/twitter", (req, res, next) => {
+        if(req.session.authenticated === true)
+            next();   
+        else
+            res.redirect("/login");
+    },  twitterRoutes);
+    app.use("/deepfake", (req, res, next) =>{
+        next();
+    }, deepfakeRoutes);
     app.use("/posts", (req, res, next) => {
         if(req.session.authenticated === true)
             next();

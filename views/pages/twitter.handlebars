@@ -1,0 +1,41 @@
+<h1>{{title}}</h1>
+<h2>Twitter Stuff</h2>
+<main>
+    <div class="feed-container">
+        <header>
+            <a href="/posts">Feed</a>
+            <a href="/profile">Profile</a>
+            <a href="/logout">Logout</a>
+            <a href="/twitter">Twitter</a>
+            <a href="/deepfake">Deepfake</a>
+        </header>
+        <form class="search-form" method="post" action="/twitter" id="search-form">
+        <div class="search-input">
+            <label for="searchbox">Search Tweets </label>
+            <input type="text" id="searchbox" name="searchbox">
+        </div>
+        <button type="submit">Search</button>
+        </form>
+        {{#if showtweets}}
+        {{#if havetweets}}
+        <p class="twitter-header">Here are {{resultslen}} results from tweets made in the last 7 days:</p>
+        <ul class="tweet-list">
+            {{#each dataarr}}
+            <li class="tweet-item"><p class="tweet-name">{{this.name}} tweets:</p> <p class="tweet-body">{{{extracttweet this.text}}}</p>
+            <button class="read-button" name="tweet" value="{{this.name}} tweets:. {{this.text}}">Read this tweet</button>
+            </li>
+            {{/each}}            
+        </ul>
+        {{else}}
+        <p class="twitter-header">There were no matching tweets from the last 7 days.</p>
+        {{/if}}
+        {{/if}}
+        <footer>
+            <a href="/posts">Feed</a>
+            <a href="/profile">Profile</a>
+            <a href="/logout">Logout</a>
+            <a href="/twitter">Twitter</a>
+            <a href="/deepfake">Deepfake</a>
+        </footer>
+    </div>
+</main>
